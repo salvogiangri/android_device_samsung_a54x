@@ -1,0 +1,13 @@
+# Android fstab file.
+#<src>                  <mnt_point>         <type>    <mnt_flags and options>                               <fs_mgr_flags>
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+system                  /system	            erofs     ro	                                                wait,logical,first_stage_mount
+vendor                  /vendor	            erofs     ro	                                                wait,logical,first_stage_mount
+system_dlkm             /system_dlkm        erofs     ro                                                    wait,logical,first_stage_mount
+vendor_dlkm             /vendor_dlkm        erofs     ro	                                                wait,logical,first_stage_mount
+product                 /product            erofs     ro	                                                wait,logical,first_stage_mount
+odm                     /odm                erofs     ro	                                                wait,logical,first_stage_mount
+/dev/block/by-name/metadata /metadata       ext4      noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic,sync    wait,formattable,first_stage_mount,check
+/dev/block/by-name/userdata /data           f2fs      noatime,nosuid,nodev,discard,usrquota,grpquota,fsync_mode=nobarrier,reserve_root=32768,resgid=5678,whint_mode=fs-based,inlinecrypt  latemount,wait,check,quota,reservedsize=128M,checkpoint=fs,fscompress,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,metadata_encryption=aes-256-xts:wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption
+/dev/block/by-name/misc /misc               emmc      defaults                                              defaults,first_stage_mount

@@ -1,0 +1,17 @@
+{
+  "Profiles": [
+    {
+      "Name": "MidgroundProcess",
+      "Actions": [
+        {
+          "Name": "None",
+          "Params":
+          {
+            "Controller": "cpu",
+            "Path": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Crypto
+ro.security.keystore.keytype=sakv2,gak,rkp
+ro.hardware.keystore=mdfpp
+ro.hardware.keystore_desede=true

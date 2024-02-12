@@ -1,0 +1,11 @@
+import /init.recovery.teegris.rc
+
+on early-init
+    mkdir /mnt/vendor/efs 0771 radio system
+
+on fs
+    wait /dev/block/platform/${ro.boot.boot_devices}
+    symlink /dev/block/platform/${ro.boot.boot_devices} /dev/block/bootdevice
+
+on boot
+    start health-hal-2-1
