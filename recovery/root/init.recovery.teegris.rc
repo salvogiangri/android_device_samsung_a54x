@@ -10,7 +10,7 @@ on fs
     mkdir /dev/socket/iwt 0770 system system
     mkdir /dev/socket/iwt/ca 0770 system system
 
-on property:hwservicemanager.ready=true
+on property:hwservicemanager.ready=true && property:crypto.ready=1
     start tz_service
     wait_for_prop vendor.tzdaemon Ready
     setprop vendor.TEEGRIS.loaded true
