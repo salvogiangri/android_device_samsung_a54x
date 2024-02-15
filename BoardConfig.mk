@@ -56,6 +56,9 @@ BOARD_ROOT_EXTRA_FOLDERS := \
     spu \
     system_dlkm
 
+# SELinux
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+
 # Android Verified Boot
 BOARD_AVB_ENABLE := false
 
