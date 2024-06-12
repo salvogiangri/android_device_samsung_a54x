@@ -13,13 +13,37 @@
 # limitations under the License.
 #
 
-BOOTLOADER=`getprop ro.boot.bootloader`
+while ! test -e "/dev/block/mapper/vendor";
+do
+  sleep 1;
+done;
 
-if [ -f "/vendor/tee/$BOOTLOADER.tar" ]; then
-  log -t "extract_ta" -p i "Bootloader version: $BOOTLOADER, found $BOOTLOADER.tar";
-  tar -xf "/vendor/tee/$BOOTLOADER.tar" -C "/vendor/tee";
-else
-  log -t "extract_ta" -p e "Bootloader version not supported: $BOOTLOADER. Hell naw.";
-fi;
+mkdir -p "/tmp/vendor";
+if mount -o ro "/dev/block/mapper/vendor" "/tmp/vendor"; then
+  mkdir -m 755 "/vendor/tee";
+  mkdir -m 755 "/vendor/tee/driver";
+
+  # Crypto Manager Driver
+  cp -p "/tmp/vendor/tee/driver/00000000-0000-0000-0000-53626f786476" \
+    "/vendor/tee/driver/00000000-0000-0000-0000-53626f786476";
+  # ICCC Driver
+  cp -p "/tmp/vendor/tee/driver/00000000-0000-0000-0000-494363447256" \
+    "/vendor/tee/driver/00000000-0000-0000-0000-494363447256";
+  # KeyMint TA
+  cp -p "/tmp/vendor/tee/00000000-0000-0000-0000-4b45594d5354" \
+    "/vendor/tee/00000000-0000-0000-0000-4b45594d5354";
+  # TZ_ICCC TA
+  cp -p "/tmp/vendor/tee/00000000-0000-0000-0000-0053545354ab" \
+    "/vendor/tee/00000000-0000-0000-0000-0053545354ab";
+  # Gatekeeper TA
+  cp -p "/tmp/vendor/tee/00000000-0000-0000-0000-474154454b45" \
+    "/vendor/tee/00000000-0000-0000-0000-474154454b45";
+
+  umount "/tmp/vendor";
+fi
+
+rm -r "/tmp/vendor";
 
 setprop "crypto.ready" "1";
+
+exit 0;
