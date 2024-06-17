@@ -210,7 +210,6 @@ sec_pm_debug.ko
 sec_pm_qos_monitor.ko
 sec_wakeup_cpu_allocator.ko
 sec_reboot.ko
-sec_crash_key.ko
 sec_crash_key_user.ko
 sec_hard_reset_hook.ko
 sec_key_notifier.ko
